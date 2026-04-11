@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hidden Gems of France</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.Default.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #1a1a2e; overflow: hidden; }
+
+    /* ── Header ── */
+    #header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      height: 52px;
+      background: rgba(20,18,48,0.94);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(127,119,221,0.25);
+      display: flex; align-items: center; padding: 0 18px; gap: 14px;
+    }
+    #header-pin { width:28px; height:28px; flex-shrink:0; background:#7F77DD; border-radius:50% 50% 50% 0; transform:rotate(-45deg); display:flex; align-items:center; justify-content:center; }
+    #header-pin::after { content:''; width:10px; height:10px; background:#14122f; border-radius:50%; transform:rotate(45deg); }
+    #header h1 { color:#fff; font-size:15px; font-weight:600; letter-spacing:.01em; }
+    #header-sub { color:rgba(175,169,236,0.8); font-size:12px; }
+    #count-badge { margin-left:auto; background:rgba(127,119,221,0.2); border:1px solid rgba(127,119,221,0.4); color:#AFA9EC; font-size:12px; font-weight:600; padding:4px 12px; border-radius:20px; white-space:nowrap; }
+
+    /* ── Map ── */
+    #map { position:fixed; top:52px; left:0; right:0; bottom:0; }
+
+    /* ── Clusters ── */
+    .marker-cluster-small,.marker-cluster-medium,.marker-cluster-large { background-color:rgba(127,119,221,0.35); }
+    .marker-cluster-small div,.marker-cluster-medium div,.marker-cluster-large div { background-color:rgba(60,52,137,0.87); color:#fff; font-weight:700; }
+
+    /* ── Leaflet controls ── */
+    .leaflet-control-zoom { border-radius:10px !important; overflow:hidden; border:none !important; box-shadow:0 2px 12px rgba(0,0,0,.25) !important; }
+    .leaflet-control-zoom a { background:rgba(255,255,255,.95) !important; color:#333 !important; }
+    .leaflet-control-layers { border-radius:10px !important; border:none !important; box-shadow:0 2px 12px rgba(0,0,0,.25) !important; background:rgba(255,255,255,.97) !important; }
+    .leaflet-control-layers-expanded { min-width:160px; padding:8px 10px !important; }
+    .leaflet-control-layers label { font-size:13px; color:#333; cursor:pointer; }
+    .leaflet-control-scale-line { border-color:#555 !important; border-top:none !important; color:#333 !important; background:rgba(255,255,255,.8) !important; font-size:11px !important; padding:2px 5px !important; border-radius:0 0 4px 4px !important; }
+    .leaflet-tooltip { font-size:12px; font-weight:600; padding:5px 10px; border-radius:8px; border:none !important; box-shadow:0 2px 8px rgba(0,0,0,.2) !important; background:rgba(20,18,48,.92) !important; color:#fff !important; }
+    .leaflet-tooltip::before { border-top-color:rgba(20,18,48,.92) !important; }
+
+    /* ── Lightbox overlay ── */
+    #lb-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.72);
+      z-index: 9999;
+      align-items: center; justify-content: center;
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    }
+
+    /* ── Lightbox box — phone-shaped, 9:16 video + info footer ── */
+    #lb-box {
+      position: relative;
+      width: 340px;
+      background: #000;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 28px 90px rgba(0,0,0,0.5);
+      animation: lb-in .17s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    @keyframes lb-in { from{opacity:0;transform:scale(.95)} to{opacity:1;transform:scale(1)} }
+
+    /* Close button sits in top-right corner over the video */
+    #lb-close {
+      position: absolute; top: 10px; right: 10px; z-index: 10;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(255,255,255,0.25);
+      cursor: pointer; font-size: 18px;
+      color: #fff; line-height: 28px; text-align: center;
+      backdrop-filter: blur(4px);
+    }
+    #lb-close:hover { background: rgba(0,0,0,0.65); }
+
+    /* Video wrapper: strict 9:16 ratio */
+    #lb-video-wrap {
+      position: relative;
+      width: 340px;
+      height: 604px; /* 340 × 16/9 = 604.4 */
+      background: #000;
+      flex-shrink: 0;
+    }
+
+    /* Spinner shown while iframe loads */
+    #lb-spinner {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none; transition: opacity .3s;
+    }
+    #lb-spinner.hidden { opacity: 0; }
+    .spin { width:32px; height:32px; border:3px solid rgba(127,119,221,.25); border-top-color:#7F77DD; border-radius:50%; animation:spin .7s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    #lb-iframe {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      border: none;
+      opacity: 0;
+      transition: opacity .35s;
+    }
+    #lb-iframe.loaded { opacity: 1; }
+
+    /* Info footer below the video */
+    #lb-info {
+      background: #fff;
+      padding: 14px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    #lb-place {
+      font-size: 14px; font-weight: 700; color: #14122f;
+      line-height: 1.3;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    #lb-region-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    }
+
+    #lb-region {
+      font-size: 11px; font-weight: 600; color: #3C3489;
+      background: #EEEDFE; padding: 2px 9px; border-radius: 20px;
+      text-transform: uppercase; letter-spacing: .05em;
+      white-space: nowrap;
+    }
+
+    #lb-ext-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      color: #1877F2; font-size: 12px; font-weight: 500;
+      text-decoration: none; white-space: nowrap;
+      padding: 4px 9px; border-radius: 6px;
+      border: 1px solid rgba(24,119,242,.25);
+      flex-shrink: 0;
+    }
+    #lb-ext-link:hover { background: rgba(24,119,242,.07); }
+
+    /* ── Loading screen ── */
+    #loading { position:fixed; inset:0; z-index:800; background:#14122f; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px; transition:opacity .4s; }
+    #loading.done { opacity:0; pointer-events:none; }
+    #loading-text { color:rgba(175,169,236,.8); font-size:14px; }
+  </style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="spin" style="width:36px;height:36px;border-width:3px"></div>
+  <div id="loading-text">Loading hidden gems…</div>
+</div>
+
+<div id="header">
+  <div id="header-pin"></div>
+  <div>
+    <h1>Hidden Gems of France</h1>
+    <div id="header-sub">Interactive travel map</div>
+  </div>
+  <div id="count-badge">— places</div>
+</div>
+
+<div id="map"></div>
+
+<!-- Lightbox -->
+<div id="lb-overlay">
+  <div id="lb-box">
+    <button id="lb-close">×</button>
+
+    <div id="lb-video-wrap">
+      <div id="lb-spinner"><div class="spin"></div></div>
+      <iframe id="lb-iframe" src="" scrolling="no" frameborder="0"
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+        allowfullscreen="true"></iframe>
+    </div>
+
+    <div id="lb-info">
+      <div id="lb-place">Place name</div>
+      <div id="lb-region-row">
+        <div id="lb-region">Region</div>
+        <a id="lb-ext-link" href="#" target="_blank" rel="noopener">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="#1877F2"><path d="M19 19H5V5h7V3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+          Open on Facebook
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.min.js"></script>
+<script>
+
+// ── Tile layers ───────────────────────────────────────────────────────────────
+const layers = {
+  'Street': L.tileLayer(
+    'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+    { attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/">CARTO</a>', maxZoom:20 }
+  ),
+  'Satellite': L.tileLayer(
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    { attribution:'© Esri', maxZoom:19 }
+  ),
+  'Satellite + Labels': L.layerGroup([
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {maxZoom:19}),
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {maxZoom:19, opacity:.85})
+  ]),
+  'Terrain': L.tileLayer(
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+    { attribution:'© Esri', maxZoom:19 }
+  ),
+  'Topographic': L.tileLayer(
+    'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+    { attribution:'© <a href="https://opentopomap.org">OpenTopoMap</a>', maxZoom:17 }
+  )
+};
+
+const map = L.map('map', { center:[46.6,2.3], zoom:6, layers:[layers['Street']], zoomControl:false });
+L.control.zoom({ position:'bottomright' }).addTo(map);
+L.control.scale({ position:'bottomleft', imperial:false }).addTo(map);
+L.control.layers(layers, {}, { position:'topright', collapsed:true }).addTo(map);
+
+// ── Clusters ──────────────────────────────────────────────────────────────────
+const clusterGroup = L.markerClusterGroup({
+  maxClusterRadius: 45,
+  spiderfyOnMaxZoom: true,
+  showCoverageOnHover: false,
+  iconCreateFunction(c) {
+    const n = c.getChildCount(), s = n<10?36:n<50?42:48;
+    return L.divIcon({
+      html:`<div style="width:${s}px;height:${s}px;background:rgba(60,52,137,.87);border:2.5px solid rgba(127,119,221,.55);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:${n<10?13:12}px;box-shadow:0 2px 8px rgba(0,0,0,.3)">${n}</div>`,
+      className:'', iconSize:[s,s], iconAnchor:[s/2,s/2]
+    });
+  }
+});
+
+// ── Load data ─────────────────────────────────────────────────────────────────
+fetch('posts.json')
+  .then(r => { if (!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+  .then(data => {
+    document.getElementById('count-badge').textContent = data.length + ' places';
+    data.forEach(d => {
+      const m = L.circleMarker([d.lat, d.lng], {
+        radius:8, fillColor:'#7F77DD', color:'#3C3489', weight:2, fillOpacity:.9
+      });
+      m.bindTooltip(d.place, { direction:'top', offset:[0,-10], opacity:1 });
+      m.on('mouseover', function(){ this.setStyle({fillColor:'#AFA9EC', radius:11, weight:2.5}); });
+      m.on('mouseout',  function(){ this.setStyle({fillColor:'#7F77DD', radius:8,  weight:2  }); });
+      m.on('click', () => openLightbox(d));
+      clusterGroup.addLayer(m);
+    });
+    map.addLayer(clusterGroup);
+    setTimeout(() => {
+      const l = document.getElementById('loading');
+      l.classList.add('done');
+      setTimeout(() => l.remove(), 400);
+    }, 300);
+  })
+  .catch(err => {
+    document.getElementById('loading-text').textContent =
+      'Could not load posts.json — serve both files from the same folder on a web server.';
+    console.error(err);
+  });
+
+// ── Lightbox ──────────────────────────────────────────────────────────────────
+function extractRegion(text) {
+  const m = text.match(/hidden gem in (?:the |The )?([^i]+?) is a|hidden gem in (?:the |The )?([^f]+?) featuring/);
+  if (!m) return 'France';
+  const raw = (m[1]||m[2]||'').trim();
+  return raw.charAt(0).toUpperCase() + raw.slice(1);
+}
+
+const iframe   = document.getElementById('lb-iframe');
+const spinner  = document.getElementById('lb-spinner');
+
+function openLightbox(d) {
+  document.getElementById('lb-place').textContent  = d.place;
+  document.getElementById('lb-region').textContent = extractRegion(d.text);
+  document.getElementById('lb-ext-link').href      = d.link;
+
+  // Reset
+  iframe.classList.remove('loaded');
+  spinner.classList.remove('hidden');
+  iframe.src = '';
+
+  // Build embed URL — Facebook video plugin with show_text=false
+  setTimeout(() => {
+    iframe.src = 'https://www.facebook.com/plugins/video.php?href=' +
+      encodeURIComponent(d.link) + '&show_text=false&width=340&appId';
+  }, 60);
+
+  iframe.onload = () => {
+    spinner.classList.add('hidden');
+    iframe.classList.add('loaded');
+  };
+
+  document.getElementById('lb-overlay').style.display = 'flex';
+}
+
+function closeLightbox() {
+  document.getElementById('lb-overlay').style.display = 'none';
+  iframe.src = '';
+  iframe.classList.remove('loaded');
+  spinner.classList.remove('hidden');
+}
+
+document.getElementById('lb-close').onclick   = closeLightbox;
+document.getElementById('lb-overlay').onclick = e => { if (e.target.id==='lb-overlay') closeLightbox(); };
+document.addEventListener('keydown', e => { if (e.key==='Escape') closeLightbox(); });
+
+</script>
+</body>
+</html>
