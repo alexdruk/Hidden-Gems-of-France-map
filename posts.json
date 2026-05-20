@@ -508,7 +508,7 @@
     "text": "In France, this hidden gem in Brittany is a medieval fishing village featuring granite stone houses, narrow winding ruettes, and a historic 13th-century church.",
     "link": "https://www.facebook.com/reel/911299118478450/",
     "lat": 48.84,
-    "lng": -3.0
+    "lng": -3
   },
   {
     "place": "Lac des Plagnes (Haute-Savoie)",
@@ -1257,7 +1257,7 @@
     "text": "In France, this hidden gem in Auvergne is a dramatic volcanic canyon featuring winding river meanders, ancient clifftop castles, and lush forested valleys.",
     "link": "https://www.facebook.com/reel/1225157589819069/",
     "lat": 46.02,
-    "lng": 3.0
+    "lng": 3
   },
   {
     "place": "Minerve",
@@ -1299,7 +1299,7 @@
     "text": "In France, this hidden gem in Provence is a jagged limestone mountain range featuring lace-like rock peaks, world-class vineyards, and ancient hiking trails.",
     "link": "https://www.facebook.com/reel/3433809183449797/",
     "lat": 44.17,
-    "lng": 5.0
+    "lng": 5
   },
   {
     "place": "Calanque de l'Ours",
@@ -1431,7 +1431,7 @@
     "place": "Île de Porquerolles",
     "text": "In France, this hidden gem in Provence-Alpes-Côte d'Azur is a crescent-shaped island featuring white sandy beaches, crystal-clear turquoise waters, and rugged southern cliffs overlooking the Mediterranean Sea.",
     "link": "https://www.facebook.com/reel/2082603655921161/",
-    "lat": 43.0,
+    "lat": 43,
     "lng": 6.2
   },
   {
@@ -1655,7 +1655,7 @@
     "place": "Lac Blanc (Vosges)",
     "text": "In France, this hidden gem in the Vosges Mountains is a glacial lake featuring crystalline white sand, an imposing rock spire crowned with a statue, and dense pine forests.",
     "link": "https://www.facebook.com/reel/804425258684241/",
-    "lat": 48.0,
+    "lat": 48,
     "lng": 7.05
   },
   {
@@ -1761,7 +1761,7 @@
     "text": "In France, this hidden gem in Occitanie is a medieval mountaintop citadel featuring a jagged limestone pinnacle, ancient masonry ramparts, and breathtaking views of the distant mountains and sea.",
     "link": "https://www.facebook.com/reel/2159413088160133/",
     "lat": 43.55,
-    "lng": 3.0
+    "lng": 3
   },
   {
     "place": "Gouffre de Padirac",
@@ -2110,7 +2110,7 @@
     "place": "Vallée du Vénéon (Écrins)",
     "text": "In France, this \"Himalaya of the Alps\" in the Ecrins is a deep, dramatic glacial trough flanked by 3,000-meter peaks, where the rushing Séveraisse river flows past the \"Oules du Diable\" waterfalls.",
     "link": "https://www.facebook.com/reel/1662601668432489/",
-    "lat": 45.0,
+    "lat": 45,
     "lng": 6.2
   },
   {
@@ -2300,7 +2300,7 @@
     "text": "In France, this hidden gem in Alpes-de-Haute-Provence is an olfactory paradise where the scent of blooming honey-flowers fills the air and endless rows of lavender stretch toward the blue horizon of the Southern Alps.",
     "link": "https://www.facebook.com/reel/1453017313003190/",
     "lat": 43.83,
-    "lng": 6.0
+    "lng": 6
   },
   {
     "place": "Forêt de Paimpont (Brocéliande)",
@@ -2342,7 +2342,7 @@
     "text": "In France, this hidden gem in Provence is the definitive landscape of the region, a vast high plateau that transforms into a geometric sea of vibrant purple lavender and golden wheat during the summer months.",
     "link": "https://www.facebook.com/reel/744062698527539/",
     "lat": 43.83,
-    "lng": 6.0
+    "lng": 6
   },
   {
     "place": "Forêt de Fontainebleau",
@@ -2545,7 +2545,7 @@
     "text": "In France, this hidden gem in Côtes-d'Armor is a labyrinth of narrow stone-walled lanes and hidden gardens, where the tides constantly reshape the landscape of over 80 islets scattered like red jewels in the turquoise Atlantic.",
     "link": "https://www.facebook.com/reel/1456015596156691/",
     "lat": 48.845,
-    "lng": -3.0
+    "lng": -3
   },
   {
     "place": "Forêt des Écrivains Combattants (Tarn/Aude)",
@@ -2558,7 +2558,7 @@
     "place": "Cap Corse (Sentier des Douaniers)",
     "text": "In France, this hidden gem in Haute-Corse features the \"Sentier des Douaniers,\" a coastal trail that winds through fragrant maquis shrubland, connecting tiny fishing ports like Centuri to secluded coves and ancient vineyards.",
     "link": "https://www.facebook.com/reel/911743621570382/",
-    "lat": 43.0,
+    "lat": 43,
     "lng": 9.4
   },
   {
@@ -2600,7 +2600,7 @@
     "place": "Cap Corse peninsula",
     "text": "In France, this hidden gem in Corsica is a rugged, 40-kilometer peninsula known as \"the island within an island,\" where Genoese towers stand guard over a wild coastline of black pebble beaches and dramatic cliffside villages.",
     "link": "https://www.facebook.com/reel/2400849440362542/",
-    "lat": 43.0,
+    "lat": 43,
     "lng": 9.4
   },
   {
@@ -2663,7 +2663,7 @@
     "place": "Forêt d'Argonne (Grand Est)",
     "text": "In France, this hidden gem in the Grand Est region is an ancient oak woodland that surrounds three massive man-made lakes, originally named after the Knights Templar who once owned these mysterious lands.",
     "link": "https://www.facebook.com/reel/796394769400388/",
-    "lat": 49.0,
+    "lat": 49,
     "lng": 4.9
   },
   {
@@ -2866,7 +2866,7 @@
     "place": "Lac Blanc (Vosges)",
     "text": "In France, Lac Blanc is a stunning glacial lake nestled in a high cirque of the Vosges Mountains, surrounded by rugged granite ridges and dark fir forests that contrast sharply with the white sand and crystalline waters that give the lake its name.",
     "link": "https://www.facebook.com/reel/1314930910354822/",
-    "lat": 48.0,
+    "lat": 48,
     "lng": 7.05
   },
   {
@@ -2937,7 +2937,7 @@
     "text": "In France, the Dentelles de Montmirail are a series of jagged, vertical limestone ridges that rise like delicate stone lace above the vineyards of the Rhône Valley, creating a dramatic and spiky horizon.",
     "link": "https://www.facebook.com/reel/1633554681147147/",
     "lat": 44.17,
-    "lng": 5.0
+    "lng": 5
   },
   {
     "place": "Chaos de Nîmes-le-Vieux",
@@ -3217,7 +3217,7 @@
     "text": "Chamonix is iconic, but the crowds are peak season chaos. 🏔️ Head to Les Contamines-Montjoie, France for traditional chalets and the quietest trails at the foot of Mont Blanc. 🤫🎿",
     "link": "https://www.facebook.com/reel/4210028435992112/",
     "lat": 43.83,
-    "lng": 6.0
+    "lng": 6
   },
   {
     "place": "Massif de l'Estérel",
@@ -3342,7 +3342,7 @@
     "place": "Cascade de Burgeat (Ariège)",
     "text": "📍 Mont Aiguille, Isère, France 🇫🇷\n📸 @alpine.wanderer (IG)",
     "link": "https://www.facebook.com/permalink.php?story_fbid=pfbid02cemVcJ77e1ZTz4xBBd8bJvLLugSGSbXmiMX8JMSQyWAmXMxZBF7zk6yHiBkeSgFql&id=61578917937246",
-    "lat": 43.0,
+    "lat": 43,
     "lng": 1.4
   },
   {
@@ -3356,7 +3356,7 @@
     "place": "Cascade de Bérard (Chamonix)",
     "text": "📍 Pont d’Arc, Ardèche, France 🇫🇷\n📸 @elias.moreau (IG)",
     "link": "https://www.facebook.com/permalink.php?story_fbid=pfbid0sdKLXLQtPkzuiFkB4UZ5r4w8zLdEiCTAQdpvnM5bJj3mhN72yeyj2YrfchAGp53Jl&id=61578917937246",
-    "lat": 46.0,
+    "lat": 46,
     "lng": 6.94
   },
   {
@@ -3461,7 +3461,7 @@
     "place": "Cap Corse",
     "text": "Cascade de Bibet is a charming little waterfall tucked into the green hills of the Pyrenees, where a clear stream flows over mossy rock ledges into a shaded pool.\n\nIts quiet forest setting makes it a refreshing stop on a local walk.\n\n📍 Where: Cascade de Bibet, near Bagnères-de-Bigorre, Hautes-Pyrénées, Occitanie, France\n☀️ Best time: Spring and early summer when rainfall and snowmelt feed the flow\n🥾 Walk tip: A short woodland path leads to the falls, suitable for a relaxed stroll\n📸 Don’t miss: Close-up shots of the water spilling gently over moss-covered rocks",
     "link": "https://www.facebook.com/permalink.php?story_fbid=pfbid02Mn1Q1z4TgFX4GET3deZ91aaMichXcPdNWnrfR2fbBmD5k4t22kEs1HLmRrqdzybhl&id=61578917937246",
-    "lat": 43.0,
+    "lat": 43,
     "lng": 9.4
   },
   {
@@ -3470,5 +3470,7 @@
     "link": "https://www.facebook.com/permalink.php?story_fbid=pfbid02XXiUwob2dm98ScRAPXvrZm51gos3rLmJ422y8PuYSVy9XHapKBeTJUWNu33etYj1l&id=61578917937246",
     "lat": 43.1533,
     "lng": 6.345
-  }
-]
+  },
+  {
+    "place": "La Roque-Gageac",
+  
